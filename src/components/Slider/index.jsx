@@ -47,7 +47,7 @@ export default function SliderComponent() {
       <Slider {...settings} className={styles.slider}>
         {tempData.slider.map(slide => {
           return (
-            <Card key={slide.id} title={slide.title} img={slide.img} name={slide.name} tel={slide.tel} price={slide.price} mail={slide.mail} fb={slide.fb} />
+            <Card key={slide.id} id={slide.id} title={slide.title} img={slide.img} name={slide.name} tel={slide.tel} price={slide.price} mail={slide.mail} fb={slide.fb} />
           )
         })}
       </Slider>
