@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import styles from './card.module.css'
 import classNames from 'classnames'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Card(slide) {
   const toast = useRef(null)
@@ -17,7 +18,7 @@ export default function Card(slide) {
 
   return (
     <div className={styles.card}>
-      <Image src={"/assets/" + slide.img} alt="" width={350} height={180}/>
+      <Link href={"ogloszenia" + slide.id} className={styles.img__div}><Image src={"/assets/" + slide.img} alt="" width={350} height={180} priority /></Link>
       <div className={styles.card__text}>
         <div className={styles.card__text__heading}>
           <h3>{slide.title}</h3>

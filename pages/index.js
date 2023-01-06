@@ -5,12 +5,10 @@ import Tutorial from '../src/components/Tutorial'
 
 export default function Home() {
   return (
-    <div className="App">
-      <Layout>
-        <Hero />
-        <Slider />
-        <Tutorial />
-      </Layout>
-    </div>
+    <Layout>
+      <Hero />
+      <Slider />
+      <Tutorial />
+    </Layout>
   )
 }

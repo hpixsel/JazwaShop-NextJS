@@ -5,7 +5,7 @@ import Navbar from '../Navbar'
 
 export default function Layout({children}) {
   return (
-    <>
+    <div className='App'>
     <Head>
       <title>JazwaStore</title>
       <meta name="title" content="JazwaStore" />
@@ -14,7 +14,6 @@ export default function Layout({children}) {
       <meta name="keywords" content="JazwaStore, JazwaShop, giełda, podręczniki, używane" />
       <meta name="author" content="Kacper Adamus & Kacper Janusz" />
       <meta name="robots" content="index, follow" />
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </Head>
 
     <Navbar />
@@ -22,6 +21,6 @@ export default function Layout({children}) {
         {children}
       </div>
     <Footer />
-    </>
+    </div>
   )
 }
