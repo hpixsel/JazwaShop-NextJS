@@ -21,7 +21,7 @@ export default function ItemPage({data}) {
               <hr className={styles.hr} />
               <p><span>Przedmiot:</span> {data.subject}</p>
               <p><span>Klasa:</span> {data.class}</p>
-              <p><span>Cena:</span> {data.price}zł</p>
+              <p className={styles.price}><span>Cena:</span> <span className={styles.price__span}>{data.price}zł</span></p>
             </div>
             {data.fb && <div className={styles.fb}>
               <a href={data.fb} className={styles.fb_anchor} target="_blank" rel="noreferrer noopenner">
