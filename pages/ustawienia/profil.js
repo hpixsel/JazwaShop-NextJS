@@ -4,6 +4,8 @@ import React from 'react'
 import Layout from '../../src/components/Layout'
 import styles from '../../styles/profile.module.css'
 
+import { withPageAuthRequired } from "@auth0/nextjs-auth0"
+
 export default function Settings() {
   return (
     <Layout>
@@ -11,7 +13,7 @@ export default function Settings() {
         <div className={styles.left}>
           <Link href='/ustawienia/profil' data-active="active">Profil</Link>
           <Link href='/ustawienia/wystawione' data-active="inactive">Wystawione</Link>
-          <Link href='#!' className={styles.logout}>Wyloguj</Link>
+          <Link href='/api/auth/logout' className={styles.logout}>Wyloguj</Link>
         </div>
         <div className={styles.right}>
           <label htmlFor="fullName">Imię i Nazwisko</label>
@@ -26,3 +28,5 @@ export default function Settings() {
     </Layout>
   )
 }
+
+export const getServerSideProps = withPageAuthRequired()

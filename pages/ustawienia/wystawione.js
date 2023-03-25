@@ -6,6 +6,8 @@ import classNames from 'classnames'
 import Layout from '../../src/components/Layout'
 import Link from 'next/link'
 
+import { withPageAuthRequired } from "@auth0/nextjs-auth0"
+
 export default function Stock() {
   return (
     <Layout>
@@ -13,7 +15,7 @@ export default function Stock() {
         <div className={styles.left}>
           <Link href='/ustawienia/profil' data-active="inactive">Profil</Link>
           <Link href='/ustawienia/wystawione' data-active="active">Wystawione</Link>
-          <Link href='#!' className={styles.logout}>Wyloguj</Link>
+          <Link href='/api/auth/logout' className={styles.logout}>Wyloguj</Link>
         </div>
         <div className={classNames(styles.right, styles.full_width_right)}>
           {tempData.slider.map(card => {
@@ -26,3 +28,5 @@ export default function Stock() {
     </Layout>
   )
 }
+
+export const getServerSideProps = withPageAuthRequired()

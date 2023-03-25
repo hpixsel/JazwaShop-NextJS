@@ -31,7 +31,6 @@ export default function Navbar() {
     )
   })
 
-  
   //toggle nav links div
   const toggleOpen = () => {
     setOpenNav(prevState => !prevState)
@@ -51,7 +50,7 @@ export default function Navbar() {
       </div>
       <div className={linksClass}>
         {links}
-        <a href='#!' className={styles.logout}>Wyloguj</a>
+        <a href='/api/auth/logout' className={styles.logout}>Wyloguj</a>
       </div>
     </div>
   )
