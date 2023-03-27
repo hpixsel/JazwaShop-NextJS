@@ -9,23 +9,6 @@
       "name": "Sklep",
       "url": "/ogloszenia",
       "svg": "shop.svg"
-    },
-    {
-      "name": "Profil",
-      "url": "/ustawienia/profil",
-      "svg": "user.svg",
-      "sublinks": [
-        {
-          "name": "Ustawienia Profilu",
-          "url": "/ustawienia/profil",
-          "svg": "gear.svg"
-        },
-        {
-          "name": "Wystawione",
-          "url": "/ustawienia/wystawione",
-          "svg": "basket.svg"
-        }
-      ]
     }
   ]
 }

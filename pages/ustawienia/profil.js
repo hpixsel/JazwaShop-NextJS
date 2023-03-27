@@ -5,8 +5,10 @@ import Layout from '../../src/components/Layout'
 import styles from '../../styles/profile.module.css'
 
 import { withPageAuthRequired } from "@auth0/nextjs-auth0"
+import { useUser } from '@auth0/nextjs-auth0/client'
 
 export default function Settings() {
+  const { user, isLoading } = useUser()
   return (
     <Layout>
       <div className={styles.container}>
@@ -17,9 +19,9 @@ export default function Settings() {
         </div>
         <div className={styles.right}>
           <label htmlFor="fullName">Imię i Nazwisko</label>
-          <input id="fullName" type="text" placeholder='Jan Kowalski' disabled />
+          <input id="fullName" type="text" placeholder={!isLoading && user.nickname} disabled />
           <label htmlFor="email">Email</label>
-          <input id="email" type="text" placeholder='jan@kowalski.pl' disabled />
+          <input id="email" type="text" placeholder={!isLoading && user.email} disabled />
           <label htmlFor="pass">Hasło</label>
           <input id="pass" type="password" placeholder='*********' disabled />
           <a href="#!" className={styles.red_btn}>Usuń Konto <Image src="/assets/delete.svg" alt="" width={16} height={16} /></a>

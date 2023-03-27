@@ -19,31 +19,32 @@
   height: 100%;
   object-fit: cover;
   transition: opacity 125ms ease-in-out,
-              transform 125ms ease-in-out;
+              filter 125ms ease-in-out,
+              transform 250ms ease-in-out;
 }
 
 .img__div::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(0, #1b1b1b, #1b1b1b77, transparent);
+  background: linear-gradient(transparent, rgba(2, 2, 2, 0.6));
   transform: translateY(5rem);
   opacity: 0;
   transition: opacity 125ms ease-in-out,
-  transform 250ms ease-in-out;
+              transform 250ms ease-in-out;
   z-index: 1;
 }
 
 .img__div:hover img {
-  transform: scale(1.1);
+  transform: scale(1.05);
   opacity: 0.9;
+  filter: blur(2px);
   z-index: -1;
 }
 
 .img__div:hover::before {
   transform: translateY(0);
   opacity: 1;
-  
 }
 
 

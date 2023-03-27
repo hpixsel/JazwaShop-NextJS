@@ -1,11 +1,11 @@
-import Link from "next/link";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Card from "../../src/components/Card";
 import Layout from "../../src/components/Layout";
 import tempData from "../../src/components/Slider/slider.json";
 import styles from "../../styles/store.module.css";
 
-export default function Store() {
+export default function Store(props) {
   const dataOG = tempData.slider;
 
   const [input, setInput] = useState("");
@@ -94,4 +94,15 @@ export default function Store() {
       </div>
     </Layout>
   );
+}
+
+export async function getServerSideProps() {
+  const rawData = await axios.get('http://judasz.ddns.net:8002/')
+  const data = rawData.data.auctions
+  
+  return {
+    props: {
+      data
+    }
+  }
 }
