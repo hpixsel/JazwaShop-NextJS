@@ -91,10 +91,11 @@
 
 .card__text__contact img {
   width: 2rem;
+  height: 2rem;
 }
 
 .email {
-  max-width: 22ch;
+  max-width: 21ch;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

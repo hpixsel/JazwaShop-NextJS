@@ -6,8 +6,8 @@ import tempData from "../../src/components/Slider/slider.json";
 import styles from "../../styles/store.module.css";
 
 export default function Store(props) {
-  const dataOG = tempData.slider;
-  console.log(props.data)
+  const dataOG = props.data;
+  console.log(props.data[1].user.number)
 
   const [input, setInput] = useState("");
   const [classSelect, setClassSelect] = useState("");
@@ -25,7 +25,8 @@ export default function Store(props) {
     );
     setData((prevState) =>
       prevState.filter((item) => {
-        const itemClass = item.class;
+        console.log(classSelect)
+        const itemClass = String(item.class);
         if (itemClass.includes(classSelect)) {
           return item;
         }
@@ -85,11 +86,11 @@ export default function Store(props) {
               id={item.id}
               title={item.title}
               img={item.img}
-              name={item.name}
-              tel={item.tel}
-              price={item.price}
-              mail={item.mail}
-              fb={item.fb}
+              name={item.user.username}
+              tel={String(item.user.number)}
+              price={item.amount}
+              mail={item.user.email}
+              fb={item.user.facebook}
             />
         ))}
       </div>

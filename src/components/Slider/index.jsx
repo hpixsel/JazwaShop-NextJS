@@ -1,12 +1,11 @@
 import React from 'react'
 import Slider from 'react-slick'
 import Card from '../Card'
-import tempData from './slider.json'
 import styles from './slider.module.css'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function SliderComponent() {
+export default function SliderComponent(props) {
   const settings = {
     infinite: true,
     centerMode: true,
@@ -45,9 +44,9 @@ export default function SliderComponent() {
   return (
     <div className={styles.container}>
       <Slider {...settings} className={styles.slider}>
-        {tempData.slider.map(slide => {
+        {props.data.map(slide => {
           return (
-            <Card key={slide.id} id={slide.id} title={slide.title} img={slide.img} name={slide.name} tel={slide.tel} price={slide.price} mail={slide.mail} fb={slide.fb} />
+            <Card key={slide.id} id={slide.id} title={slide.title} img={slide.img} name={slide.user.username} tel={String(slide.user.number)} price={slide.amount} mail={slide.user.email} fb={slide.user.facebook} />
           )
         })}
       </Slider>

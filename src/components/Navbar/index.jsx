@@ -9,8 +9,6 @@ import { useUser } from '@auth0/nextjs-auth0/client'
 export default function Navbar() {
   const [openNav, setOpenNav] = useState(false)
   const { user, isLoading} = useUser()
-
-  console.log(user)
   
   const links = data.links.map(link => {
     const linkWithSub = classNames(styles.link, {[styles.with_sublinks]: link.sublinks})
