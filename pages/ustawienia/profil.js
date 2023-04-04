@@ -19,9 +19,9 @@ export default function Settings() {
         </div>
         <div className={styles.right}>
           <label htmlFor="fullName">Imię i Nazwisko</label>
-          <input id="fullName" type="text" placeholder={!isLoading && user.nickname} disabled />
+          <input id="fullName" type="text" placeholder={!isLoading ? user.nickname : undefined} disabled />
           <label htmlFor="email">Email</label>
-          <input id="email" type="text" placeholder={!isLoading && user.email} disabled />
+          <input id="email" type="text" placeholder={!isLoading ? user.email : undefined} disabled />
           <label htmlFor="pass">Hasło</label>
           <input id="pass" type="password" placeholder='*********' disabled />
           <a href="#!" className={styles.red_btn}>Usuń Konto <Image src="/assets/delete.svg" alt="" width={16} height={16} /></a>

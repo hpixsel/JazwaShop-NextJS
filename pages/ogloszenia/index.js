@@ -7,6 +7,7 @@ import styles from "../../styles/store.module.css";
 
 export default function Store(props) {
   const dataOG = tempData.slider;
+  console.log(props.data)
 
   const [input, setInput] = useState("");
   const [classSelect, setClassSelect] = useState("");
@@ -98,8 +99,8 @@ export default function Store(props) {
 
 export async function getServerSideProps() {
   const rawData = await axios.get('http://judasz.ddns.net:8002/')
-  const data = rawData.data.auctions
-  
+  const data = rawData.data
+
   return {
     props: {
       data
