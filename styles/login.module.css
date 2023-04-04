@@ -20,21 +20,23 @@
   width: 100%;
 }
 
-.container input + label {
+.container :is(input, textarea, select) + label {
   margin-top: 1rem;
 }
 
-.container label, .container input[type="text"], .container input[type="password"] {
+.container :is(label, input:not([type="submit"]), textarea, select) {
   display: block;
   width: 100%;
   font-size: 1rem;
 }
 
-.container input[type="text"], .container input[type="password"] {
+.container :is(input:not([type="submit"]), textarea, select) {
   padding: 0.4em 0.75em;
   border: 0;
   border-radius: 8px;
   background-color: #d9d9d9;
+  margin-top: 0.25rem;
+  color: #111111;
 }
 
 .bottom {

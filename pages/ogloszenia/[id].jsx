@@ -1,6 +1,7 @@
 import axios from 'axios'
 import Image from 'next/image'
 import React from 'react'
+import SimpleDateTime from 'react-simple-timestamp-to-date'
 import Layout from '../../src/components/Layout'
 import styles from '../../styles/auction.module.css'
 
@@ -9,11 +10,11 @@ export default function ItemPage({data}) {
     <Layout>
       <div className={styles.center}>
         <h1 className={styles.title}>{data.title}</h1>
-        <p className={styles.date}>{data.date.timestamp}</p>
+        <SimpleDateTime className={styles.date} dateSeparator="." dateFormat="DMY" timeFormat="HM" timeSeparator=":">{data.date.timestamp}</SimpleDateTime>
         <div className={styles.grid}>
-        <div className={styles.img__div}>
-          <Image src={"http://judasz.ddns.net:8002" + data.img} fill alt={data.title} priority />
-        </div>
+          <div className={styles.img__div}>
+            <Image src={"http://judasz.ddns.net:8002" + data.img} fill alt={data.title} priority />
+          </div>
           <div className={styles.details}>
             <div>
               <h3>{data.user.username}</h3>
@@ -31,6 +32,9 @@ export default function ItemPage({data}) {
               </a>
             </div>}
           </div>
+        </div>
+        <div className={styles.description}>
+          <p>{data.description}</p>
         </div>
       </div>
     </Layout>

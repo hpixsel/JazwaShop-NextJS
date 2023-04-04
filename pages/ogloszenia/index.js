@@ -7,7 +7,6 @@ import styles from "../../styles/store.module.css";
 
 export default function Store(props) {
   const dataOG = props.data;
-  console.log(props.data[1].user.number)
 
   const [input, setInput] = useState("");
   const [classSelect, setClassSelect] = useState("");
