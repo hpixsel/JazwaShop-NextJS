@@ -4,6 +4,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Layout from '../src/components/Layout'
 import styles from '/styles/login.module.css'
+import {v4 as uuidv4} from 'uuid'
 
 export default function Dodaj() {
   const { user } = useUser()
@@ -33,8 +34,15 @@ export default function Dodaj() {
 
   const handlePOST = () => {
     axios.post('http://judasz.ddns.net:8002/create', {
-      userId: user.sub,
-      auction: data
+      amount: data.amount,
+      class: data.class,
+      date: "now",
+      description: data.description,
+      id: uuidv4(),
+      img: data.img,
+      subject: data.subject,
+      title: data.title,
+      user: user.sub
     }, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -69,7 +77,7 @@ export default function Dodaj() {
             })
           }} />
           <label htmlFor="Value">Cena</label>
-          <input id="Value" type="number" min={0} step={1} onChange={e => {
+          <input id="Value" type="number" min={0} step={1} max={9999} onChange={e => {
             setData(prevState => {
               return {
                 ...prevState,
@@ -106,7 +114,7 @@ export default function Dodaj() {
             <option value="Fizyka">Fizyka</option>
           </select>
           <label htmlFor="Img">Zdjęcie</label>
-          <input id="Img" type="file" onChange={e => handleImgUpload(e)} />
+          <input id="Img" type="file" accept="image/png, image/jpeg" onChange={e => handleImgUpload(e)} />
 
           <div className={styles.bottom}>
             <input type="submit" value="Wyślij" onClick={() => handlePOST()} />
