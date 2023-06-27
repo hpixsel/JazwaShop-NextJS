@@ -30,6 +30,9 @@ export default function Tutorial() {
         <div className={styles.svg}>
           <Image src="/assets/tutorial.svg" alt="svg" width={335} height={251}/>
         </div>
+        <div className={styles.bg}>
+          <Image src="/assets/tutorial-bg.png" alt="svg" width={1565} height={1175}/>
+        </div>
       </div>
     </div>
   )
