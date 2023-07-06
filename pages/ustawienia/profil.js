@@ -11,7 +11,7 @@ export default function Settings() {
   const { user, isLoading } = useUser()
   return (
     <Layout>
-      <div class="wrapper">
+      <div className="wrapper">
         <div className={styles.container}>
           <div className={styles.left}>
             <Link href='/ustawienia/profil' data-active="active">Profil</Link>

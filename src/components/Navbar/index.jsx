@@ -54,7 +54,7 @@ export default function Navbar() {
         {links}
         <Link className={`${styles.link} ${!isLoading && user && styles.sublinks}`} href={user ? "/ustawienia/profil" : "/api/auth/login"}>
           <Image src={"/assets/user.svg"} alt="svg" width={30} height={30} />
-          {!isLoading && user ? <p>{user.nickname}</p> : <Link className={styles.link} href={"/ustawienia/profil"}>Zaloguj / Zarejestruj</Link>}
+          {!isLoading && user ? <p>{user.nickname}</p> : <p className={styles.link}>Zaloguj / Zarejestruj</p>}
           {!isLoading && user && <Image className={styles.link__arrow} src="/assets/arrow.svg" alt="svg" width={16} height={16} />}
         </Link>
         {!isLoading && user && <><Link className={classNames(styles.link, styles.sublink)} href="/ustawienia/profil">

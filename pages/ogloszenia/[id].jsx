@@ -1,19 +1,22 @@
 import axios from 'axios'
 import Image from 'next/image'
 import React from 'react'
-import SimpleDateTime from 'react-simple-timestamp-to-date'
 import Layout from '../../src/components/Layout'
 import styles from '../../styles/auction.module.css'
 
 export default function ItemPage({data}) {
+  const date = new Date(data.date.timestamp)
+  const dateFormat = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ", " + date.getDate() + "/" + date.getMonth() + 1 + "/" + date.getFullYear()
+
   return (
     <Layout>
-      <div className={styles.center}>
+      <div className={`${styles.center} wrapper`}>
         <h1 className={styles.title}>{data.title}</h1>
-        <SimpleDateTime className={styles.date} dateSeparator="." dateFormat="DMY" timeFormat="HM" timeSeparator=":">{data.date.timestamp}</SimpleDateTime>
+        {/* <SimpleDateTime className={styles.date} dateSeparator="." dateFormat="DMY" timeFormat="HM" timeSeparator=":">{data.date.timestamp}</SimpleDateTime> */}
+        <p className={styles.date}>{dateFormat}</p>
         <div className={styles.grid}>
           <div className={styles.img__div}>
-            <Image src={"http://judasz.ddns.net:8002" + data.img} fill alt={data.title} priority />
+            <Image src={"http://judasz.ddns.net:8000/" + data.img} fill alt={data.title} priority />
           </div>
           <div className={styles.details}>
             <div>
@@ -42,7 +45,7 @@ export default function ItemPage({data}) {
 }
 
 export async function getStaticPaths() {
-  const allItems = await axios.get('http://judasz.ddns.net:8002/')
+  const allItems = await axios.get(process.env.ENDPOINT)
   const allPaths = allItems.data.map(item => {
     return {
       params: {
@@ -59,7 +62,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const id = context?.params.id
-  const allItems = await axios.get('http://judasz.ddns.net:8002/')
+  const allItems = await axios.get(process.env.ENDPOINT)
 
   const itemData = allItems.data.find(item => {
     return (

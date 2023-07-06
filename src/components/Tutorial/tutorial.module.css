@@ -86,13 +86,16 @@
   }
 }
 
-@media (min-width: 150em) {
+@media (min-width: 120em) {
   .bg {
-    width: 50%;
+    width: 75%;
     margin-inline: auto;
   }
 
-  .bg img {position: relative;}
+  .bg img {
+    position: relative;
+    object-position: center -15em;
+  }
 
   .bg::before, .bg::after {
     content: "";

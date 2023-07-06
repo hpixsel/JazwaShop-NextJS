@@ -7,11 +7,12 @@ import Layout from '../../src/components/Layout'
 import Link from 'next/link'
 
 import { withPageAuthRequired } from "@auth0/nextjs-auth0"
+import axios from 'axios'
 
-export default function Stock() {
+export default function Stock(props) {
   return (
     <Layout>
-      <div class="wrapper">
+      <div className="wrapper">
         <div className={styles.container}>
           <div className={styles.left}>
             <Link href='/ustawienia/profil' data-active="inactive">Profil</Link>
@@ -19,7 +20,7 @@ export default function Stock() {
             <Link href='/api/auth/logout' className={styles.logout}>Wyloguj</Link>
           </div>
           <div className={classNames(styles.right, styles.full_width_right)}>
-            {tempData.slider.map(card => {
+            {props.data.map(card => {
               return(
                 <StockCard img={card.img} header={card.title} price={card.price} date={card.added} key={card.id} />
               )
@@ -31,4 +32,22 @@ export default function Stock() {
   )
 }
 
-export const getServerSideProps = withPageAuthRequired()
+export const getServerSideProps = async () => {
+  withPageAuthRequired()
+
+  try {
+    const res = await axios.get(process.env.ENDPOINT)
+    const data = res.data
+
+    return {
+      props: {
+        data
+      }
+    }
+  } catch (err) {
+    console.log(err)
+    return {
+      props: {}
+    }
+  }
+}

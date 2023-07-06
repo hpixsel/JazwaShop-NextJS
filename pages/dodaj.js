@@ -33,7 +33,7 @@ export default function Dodaj() {
   }
 
   const handlePOST = () => {
-    axios.post('http://judasz.ddns.net:8002/create', {
+    axios.post('http://judasz.ddns.net:8000/create', {
       amount: data.amount,
       class: data.class,
       date: "now",

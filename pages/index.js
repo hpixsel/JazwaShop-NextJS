@@ -3,13 +3,16 @@ import Hero from '../src/components/Hero'
 import Slider from '../src/components/Slider'
 import Tutorial from '../src/components/Tutorial'
 import axios from 'axios'
+import { Suspense } from 'react'
 
 export default function Home(props) {
   return (
     <>
       <Layout>
         <Hero />
-        {/* <Slider data={props.data} /> */}
+        <Suspense fallback={<div>Loading...</div>}>
+          <Slider data={props.data} />
+        </Suspense>
         <Tutorial />
       </Layout>
     </>
@@ -17,13 +20,20 @@ export default function Home(props) {
 }
 
 
-// export async function getServerSideProps() {
-//   const res = await axios.get('http://judasz.ddns.net:8002/')
-//   const data = res.data
+export async function getServerSideProps() {
+  try {
+    const res = await axios.get(process.env.ENDPOINT)
+    const data = res.data
 
-//   return {
-//     props: {
-//       data
-//     }
-//   }
-// }
+    return {
+      props: {
+        data
+      }
+    }
+  } catch (err) {
+    console.log(err)
+    return {
+      props: {}
+    }
+  }
+}
