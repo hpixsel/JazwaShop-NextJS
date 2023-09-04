@@ -33,8 +33,6 @@ export default function Stock(props) {
 }
 
 export const getServerSideProps = async () => {
-  withPageAuthRequired()
-
   try {
     const res = await axios.get(process.env.ENDPOINT)
     const data = res.data
