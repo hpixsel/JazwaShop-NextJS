@@ -11,7 +11,7 @@ export default function Home(props) {
       <Layout>
         <Hero />
         <Suspense fallback={<div>Loading...</div>}>
-          <Slider data={props.data} />
+          {props.data && <Slider data={props.data} />}
         </Suspense>
         <Tutorial />
       </Layout>
