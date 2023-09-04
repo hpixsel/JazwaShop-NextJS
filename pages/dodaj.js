@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import Layout from '../src/components/Layout'
 import styles from '/styles/login.module.css'
 import {v4 as uuidv4} from 'uuid'
+import Image from 'next/image'
 
 export default function Dodaj() {
   const { user } = useUser()
@@ -16,10 +17,7 @@ export default function Dodaj() {
     "subject": "",
     "img": null
   })
-  
-  // useEffect(() => {
-  //   console.log(data)
-  // }, [data])
+  const [imagePreview, setImagePreview] = useState("/assets/placeholder-image.jpg")
 
   const handleImgUpload = (e) => {
     if (e.target.files) {
@@ -29,11 +27,12 @@ export default function Dodaj() {
           "img": e.target.files[0]
         }
       });
+      setImagePreview(URL.createObjectURL(e.target.files[0]))
     }
   }
 
   const handlePOST = () => {
-    axios.post('http://judasz.ddns.net:8002/create', {
+    axios.post('http://judasz.ddns.net:8000/create', {
       amount: data.amount,
       class: data.class,
       date: "now",
@@ -56,7 +55,7 @@ export default function Dodaj() {
 
   return (
     <Layout>
-      <div className={styles.container}>
+      <div className={`wrapper ${styles.container}`}>
         <form onSubmit={e => e.preventDefault()}>
           <label htmlFor="Title">Tytuł</label>
           <input id="Title" type="text" onChange={e => {
@@ -115,7 +114,9 @@ export default function Dodaj() {
           </select>
           <label htmlFor="Img">Zdjęcie</label>
           <input id="Img" type="file" accept="image/png, image/jpeg" onChange={e => handleImgUpload(e)} />
-
+          <div className={styles.imagePreview}>
+            <Image fill sizes='(max-width: 768px) 100vw' src={imagePreview} alt='preview' />
+          </div>
           <div className={styles.bottom}>
             <input type="submit" value="Wyślij" onClick={() => handlePOST()} />
           </div>

@@ -7,7 +7,7 @@ export default function index(card) {
   return (
     <div className={styles.container} key={card.id}>
       <div className={styles.img_div}>
-        <Image src={"/assets/" + card.img} alt="" width={580} height={435} />
+        <Image src={"http://judasz.ddns.net:8000/" + card.img} alt="" width={580} height={435} />
       </div>
       <div className={styles.text_div}>
         <div className={styles.header}>

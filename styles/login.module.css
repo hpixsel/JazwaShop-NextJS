@@ -20,6 +20,10 @@
   width: 100%;
 }
 
+.container textarea {
+  resize: vertical;
+}
+
 .container :is(input, textarea, select) + label {
   margin-top: 1rem;
 }
@@ -37,6 +41,19 @@
   background-color: #d9d9d9;
   margin-top: 0.25rem;
   color: #111111;
+}
+
+.imagePreview {
+  position: relative;
+  aspect-ratio: 16/9;
+  width: 100%;
+  margin-top: 2rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.imagePreview img {
+  object-fit: cover;
 }
 
 .bottom {

@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Card from "../../src/components/Card";
 import Layout from "../../src/components/Layout";
-import tempData from "../../src/components/Slider/slider.json";
 import styles from "../../styles/store.module.css";
 
 export default function Store(props) {
@@ -24,7 +23,6 @@ export default function Store(props) {
     );
     setData((prevState) =>
       prevState.filter((item) => {
-        console.log(classSelect)
         const itemClass = String(item.class);
         if (itemClass.includes(classSelect)) {
           return item;
@@ -43,7 +41,7 @@ export default function Store(props) {
 
   return (
     <Layout>
-      <div className={styles.filters}>
+      <div className={`${styles.filters} wrapper`}>
         <input onInput={(e) => setInput(e.target.value)} type="text" />
         <div className={styles.filters__child}>
           <label htmlFor="class">Klasa:</label>
@@ -72,13 +70,14 @@ export default function Store(props) {
             <option value="Matematyka">Matematyka</option>
             <option value="Angielski">Angielski</option>
             <option value="Niemiecki">Niemiecki</option>
+            <option value="Religia">Religia</option>
           </select>
         </div>
       </div>
 
-      <hr className={styles.hr} />
+      <hr className={`${styles.hr} wrapper`} />
 
-      <div className={styles.grid}>
+      {props.data.length > 0 ? <div className={`${styles.grid} wrapper`}>
         {data.map((item) => (
             <Card
               key={item.id}
@@ -92,18 +91,27 @@ export default function Store(props) {
               fb={item.user.facebook}
             />
         ))}
-      </div>
+      </div> : <div className="wrapper error"><h1>Wystąpił błąd</h1></div>}
     </Layout>
   );
 }
 
 export async function getServerSideProps() {
-  const rawData = await axios.get('http://judasz.ddns.net:8002/')
-  const data = rawData.data
+  try {
+    const res = await axios.get(process.env.ENDPOINT)
+    const data = res.data
 
-  return {
-    props: {
-      data
+    return {
+      props: {
+        data
+      }
+    }
+  } catch (err) {
+    console.log(err)
+    return {
+      props: {
+        data: []
+      }
     }
   }
 }
