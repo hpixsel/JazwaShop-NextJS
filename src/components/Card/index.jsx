@@ -18,7 +18,7 @@ export default function Card(slide) {
 
   return (
     <div className={styles.card}>
-      <Link href={"/ogloszenia/" + slide.id} className={styles.img__div}><Image src={"http://judasz.ddns.net:8002" + slide.img} alt="" width={350} height={180} priority /></Link>
+      <Link href={"/ogloszenia/" + slide.id} className={styles.img__div}><Image src={process.env.NEXT_PUBLIC_ENDPOINT + slide.img} alt="" width={350} height={180} priority /></Link>
       <div className={styles.card__text}>
         <div className={styles.card__text__heading}>
           <h3>{slide.title}</h3>

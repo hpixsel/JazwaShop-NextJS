@@ -41,7 +41,8 @@ export default function Dodaj() {
       img: data.img,
       subject: data.subject,
       title: data.title,
-      user: user.sub
+      user: 1,
+      status: 0
     }, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -125,5 +126,3 @@ export default function Dodaj() {
     </Layout>
   )
 }
-
-export const getServerSideProps = withPageAuthRequired()

@@ -12,7 +12,6 @@ export default function ItemPage({data}) {
     <Layout>
       <div className={`${styles.center} wrapper`}>
         <h1 className={styles.title}>{data.title}</h1>
-        {/* <SimpleDateTime className={styles.date} dateSeparator="." dateFormat="DMY" timeFormat="HM" timeSeparator=":">{data.date.timestamp}</SimpleDateTime> */}
         <p className={styles.date}>{dateFormat}</p>
         <div className={styles.grid}>
           <div className={styles.img__div}>
@@ -44,24 +43,8 @@ export default function ItemPage({data}) {
   )
 }
 
-export async function getStaticPaths() {
-  const allItems = await axios.get(process.env.ENDPOINT)
-  const allPaths = allItems.data.map(item => {
-    return {
-      params: {
-        id: String(item.id)
-      }
-    }
-  })
-
-  return {
-    paths: allPaths,
-    fallback: false
-  }
-}
-
-export async function getStaticProps(context) {
-  const id = context?.params.id
+export async function getServerSideProps(context) {
+  const id = context.params.id
   const allItems = await axios.get(process.env.ENDPOINT)
 
   const itemData = allItems.data.find(item => {
