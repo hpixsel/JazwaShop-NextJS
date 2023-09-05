@@ -8,11 +8,10 @@ const { Provider } = AuthContext
 function AuthProvider({children}) {
   const router = useRouter()
   const [authState, setAuthState] = useState({
-    username: '',
-    email: '',
-    facebook: '',
-    number: '',
-    hashPass: ''
+    code: '',
+    message: '',
+    user: '',
+    hash: ''
   })
 
   useEffect(() => {
@@ -24,7 +23,7 @@ function AuthProvider({children}) {
   }
 
   // user log state check
-  const isUserAuthenticated = () => !!authState.hashPass
+  const isUserAuthenticated = () => !!authState.session
 
   return (
     <Provider

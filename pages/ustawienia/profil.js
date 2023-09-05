@@ -19,7 +19,7 @@ export default function Settings() {
   return (
     <Layout>
       <div className="wrapper">
-        {/* <div className={styles.container}>
+        <div className={styles.container}>
           <div className={styles.left}>
             <Link href='/ustawienia/profil' data-active="active">Profil</Link>
             <Link href='/ustawienia/wystawione' data-active="inactive">Wystawione</Link>
@@ -34,7 +34,7 @@ export default function Settings() {
             <input id="pass" type="password" placeholder='*********' disabled />
             <a href="#!" className={styles.red_btn}>Usuń Konto <Image src="/assets/delete.svg" alt="" width={16} height={16} /></a>
           </div>
-        </div> */}
+        </div>
       </div>
     </Layout>
   )

@@ -1,14 +1,21 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styles from './navbar.module.css'
 import data from './navbar.json'
 import classNames from 'classnames'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useUser } from '@auth0/nextjs-auth0/client'
+import { AuthContext } from '../../../context/auth-context'
+import { getCookie } from 'cookies-next'
+import jwtDecode from 'jwt-decode'
 
 export default function Navbar() {
+  const authContext = useContext(AuthContext)
   const [openNav, setOpenNav] = useState(false)
-  const { user, isLoading } = useUser()
+  const userCookie = getCookie('user')
+  console.log(userCookie)
+  const userData = jwtDecode(userCookie.user)
+  const [user, setUser] = useState(userData)
+  console.log(user)
   
   const links = data.links.map(link => {
     const linkWithSub = classNames(styles.link, {[styles.with_sublinks]: link.sublinks})
@@ -52,21 +59,21 @@ export default function Navbar() {
       </div>
       <div className={linksClass}>
         {links}
-        <Link className={`${styles.link} ${!isLoading && user && styles.sublinks}`} href={user ? "/ustawienia/profil" : "/api/auth/login"}>
+        {/* <Link className={`${styles.link} ${authContext.isUserAuthenticated && styles.sublinks}`} href={authContext.isUserAuthenticated ? "/ustawienia/profil" : "/api/auth/login"}>
           <Image src={"/assets/user.svg"} alt="svg" width={30} height={30} />
-          {!isLoading && user ? <p>{user.nickname}</p> : <p className={styles.link}>Zaloguj / Zarejestruj</p>}
-          {!isLoading && user && <Image className={styles.link__arrow} src="/assets/arrow.svg" alt="svg" width={16} height={16} />}
+          {authContext.isUserAuthenticated ? <p>{user.nickname}</p> : <p className={styles.link}>Zaloguj / Zarejestruj</p>}
+          {authContext.isUserAuthenticated && <Image className={styles.link__arrow} src="/assets/arrow.svg" alt="svg" width={16} height={16} />}
         </Link>
-        {!isLoading && user && <><Link className={classNames(styles.link, styles.sublink)} href="/ustawienia/profil">
+        {authContext.isUserAuthenticated && <><Link className={classNames(styles.link, styles.sublink)} href="/ustawienia/profil">
               <Image src={"/assets/gear.svg"} alt="svg" width={30} height={30} />
               <p>Ustawienia Profilu</p>
         </Link>
         <Link className={classNames(styles.link, styles.sublink)} href="/ustawienia/wystawione">
               <Image src={"/assets/basket.svg"} alt="svg" width={30} height={30} />
               <p>Wystawione</p>
-        </Link></>}
+        </Link></>} */}
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-        {user && <a href='/api/auth/logout' className={styles.logout}>Wyloguj</a>}
+        {/* {user && <a href='/api/auth/logout' className={styles.logout}>Wyloguj</a>} */}
       </div>
     </div>
   )
