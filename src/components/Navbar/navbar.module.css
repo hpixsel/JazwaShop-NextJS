@@ -111,16 +111,13 @@
 
   .link {
     pointer-events: all;
-  }
-
-  .link p {
     font-size: 1rem;
     font-weight: 400;
     transition: 125ms ease-in-out;
     text-decoration-color: var(--clr-accent);
   }
   
-  .link:hover p {
+  .link:hover {
     color: #fff;
     text-decoration: underline;
     text-decoration-color: var(--clr-accent);

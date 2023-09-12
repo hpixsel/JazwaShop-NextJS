@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Layout from "../src/components/Layout";
 import styles from "/styles/login.module.css"
 import axios from "axios";
@@ -12,6 +12,10 @@ export default function Login() {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
 
+  useEffect(() => {
+    authContext.isUserAuthenticated() && router.push('/ustawienia/profil')
+  }, [])
+
   const handlePOST = () => {
     axios.post('http://judasz.ddns.net:8000/login', {
       login: login,
@@ -21,8 +25,11 @@ export default function Login() {
         'Content-Type': 'multipart/form-data'
       }
     }).then(function (res) {
-      authContext.setAuthState(res.data)
-      router.push('/ustawienia/profil')
+      authContext.setAuthState({
+        user: res.data.user,
+        session: res.data.hash
+      })
+      res.data.code === 1 && router.push('/ustawienia/profil')
     }).catch(function (error) {
       console.error(error);
     });
