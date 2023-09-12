@@ -1,5 +1,3 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { useUser } from '@auth0/nextjs-auth0/client'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Layout from '../src/components/Layout'
@@ -8,7 +6,6 @@ import {v4 as uuidv4} from 'uuid'
 import Image from 'next/image'
 
 export default function Dodaj() {
-  const { user } = useUser()
   const [data, setData] = useState({
     "title": "",
     "description": "",

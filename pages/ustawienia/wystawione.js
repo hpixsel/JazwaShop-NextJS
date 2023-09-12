@@ -1,12 +1,10 @@
 import React from 'react'
 import styles from '../../styles/profile.module.css'
-import tempData from '../../src/components/Slider/slider.json'
 import StockCard from '../../src/components/StockCard'
 import classNames from 'classnames'
 import Layout from '../../src/components/Layout'
 import Link from 'next/link'
 
-import { withPageAuthRequired } from "@auth0/nextjs-auth0"
 import axios from 'axios'
 
 export default function Stock(props) {

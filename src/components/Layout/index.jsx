@@ -16,7 +16,7 @@ export default function Layout({children}) {
       <meta name="robots" content="index, follow" />
     </Head>
 
-    {/* <Navbar /> */}
+    <Navbar />
       <div className="container">
         {children}
       </div>

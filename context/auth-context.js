@@ -1,18 +1,15 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { setCookie } from 'cookies-next'
+import { getCookie, hasCookie, setCookie } from 'cookies-next'
 
 const AuthContext = createContext()
 const { Provider } = AuthContext
 
 function AuthProvider({children}) {
   const router = useRouter()
-  const [authState, setAuthState] = useState({
-    username: '',
-    email: '',
-    facebook: '',
-    number: '',
-    hashPass: ''
+  const [authState, setAuthState] = useState(hasCookie('user') ? JSON.parse(getCookie('user')) : {
+    user: '',
+    session: ''
   })
 
   useEffect(() => {
@@ -24,7 +21,7 @@ function AuthProvider({children}) {
   }
 
   // user log state check
-  const isUserAuthenticated = () => !!authState.hashPass
+  const isUserAuthenticated = () => !!authState.session
 
   return (
     <Provider
