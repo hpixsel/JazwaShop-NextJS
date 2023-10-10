@@ -29,6 +29,7 @@ export default function Login() {
         user: res.data.user,
         session: res.data.hash
       })
+      console.log(res)
       res.data.code === 1 && router.push('/ustawienia/profil')
     }).catch(function (error) {
       console.error(error);
