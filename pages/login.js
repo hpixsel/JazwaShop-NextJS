@@ -17,7 +17,7 @@ export default function Login() {
   }, [])
 
   const handlePOST = () => {
-    axios.post('http://judasz.ddns.net:8000/login', {
+    axios.post('http://judasz.ddns.net:8000/user/login', {
       login: login,
       password: shajs('SHA256').update(password).digest('hex')
     }, {

@@ -22,8 +22,6 @@ export default function Settings() {
     setUser(getUser())
   }, [])
 
-  console.log(user)
-
   return (
     <Layout>
       <div className="wrapper">

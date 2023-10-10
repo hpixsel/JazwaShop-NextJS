@@ -11,6 +11,7 @@ export default function Login() {
   const [password, setPassword] = useState('')
 
   const handlePOST = () => {
+    if (password !== confirmPassword) return
     console.log('Login: ' + login)
     console.log('Password: ' + password)
     console.log('CPassword: ' + confirmPassword)
@@ -23,14 +24,14 @@ export default function Login() {
     <Layout>
       <div className={`wrapper ${styles.container}`}>
         <form onSubmit={e => e.preventDefault()}>
-          <label htmlFor="login">Login</label>
-          <input type="text" id="login" onChange={e => setLogin(e.target.value)} />
-          <label htmlFor="password">Hasło</label>
-          <input type="password" id="password" onChange={e => setPassword(e.target.value)} />
-          <label htmlFor="confirm">Potwierdź Hasło</label>
-          <input type="password" id="confirm" onChange={e => setConfirmPassword(e.target.value)} />
+          <label htmlFor="login">Login *</label>
+          <input type="text" id="login" onChange={e => setLogin(e.target.value)} required />
+          <label htmlFor="password">Hasło *</label>
+          <input type="password" id="password" onChange={e => setPassword(e.target.value)} required />
+          <label htmlFor="confirm">Potwierdź Hasło *</label>
+          <input type="password" id="confirm" onChange={e => setConfirmPassword(e.target.value)} required />
           <label htmlFor="email" className={styles.split}>Email</label>
-          <input type="text" id="email" onChange={e => setEmail(e.target.value)} />
+          <input type="email" id="email" onChange={e => setEmail(e.target.value)} required />
           <label htmlFor="facebook">Facebook (www.facebook.com/jankowalski)</label>
           <input type="text" id="email" onChange={e => setFacebook(e.target.value)} />
           <label htmlFor="number">Numer Telefonu</label>

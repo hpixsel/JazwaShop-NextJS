@@ -5,8 +5,8 @@ import Layout from '../../src/components/Layout'
 import styles from '../../styles/auction.module.css'
 
 export default function ItemPage({data}) {
-  const date = new Date(data.date.timestamp)
-  const dateFormat = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ", " + date.getDate() + "/" + date.getMonth() + 1 + "/" + date.getFullYear()
+  const date = new Date(data.date.timestamp * 1000)
+  const dateFormat = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ", " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
 
   return (
     <Layout>
