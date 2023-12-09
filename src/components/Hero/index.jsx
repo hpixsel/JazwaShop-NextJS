@@ -12,14 +12,14 @@ export default function Hero() {
       </div>
       <div className={styles.buttons}>
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-        <a href="/api/auth/login" className="btn-cta">
+        <Link href="/register" className="btn-cta">
           Zarejestruj się
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
             <g className="mdi:arrow-up-bold" clipPath="url(#a)">
               <path fill="#673ab7" d="M0 17.592V8.408h12.121V1L24 13 12.121 25v-7.408H0Z" className="Vector"/>
             </g>
           </svg>
-        </a>
+        </Link>
         <Link href="/ogloszenia" className="btn">
           Sprawdź oferty
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">

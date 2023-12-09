@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Card from "../../src/components/Card";
-import Layout from "../../src/components/Layout";
-import styles from "../../styles/store.module.css";
+import Card from "/src/components/Card";
+import Layout from "/src/components/Layout";
+import styles from "/styles/store.module.css";
 
 export default function Store(props) {
   const dataOG = props.data;

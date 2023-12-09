@@ -1,0 +1,23 @@
+.header {
+    margin-top: 5rem;
+    text-align: center;
+}
+
+.img_div {
+    position: relative;
+    width: 90%;
+    aspect-ratio: 15/9;
+    margin-inline: auto;
+    margin-block: 2rem 5rem;
+}
+
+@media (min-width: 65rem) {
+    .header {
+        margin-top: 6rem;
+    }
+
+    .img_div {
+        width: 50%;
+        margin-top: 4rem;
+    }
+}

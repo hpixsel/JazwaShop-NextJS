@@ -1,20 +1,37 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import Layout from '../src/components/Layout'
+import Layout from '/src/components/Layout'
 import styles from '/styles/login.module.css'
 import {v4 as uuidv4} from 'uuid'
 import Image from 'next/image'
+import jwtDecode from 'jwt-decode'
+import { withIronSessionSsr } from 'iron-session/next'
+import { ironOptions } from '../lib/iron-config'
+import { useRouter } from 'next/router'
 
 export default function Dodaj() {
+  const router = useRouter()
   const [data, setData] = useState({
     "title": "",
     "description": "",
     "amount": null,
     "class": 1,
-    "subject": "",
+    "subject": "Angielski",
     "img": null
   })
   const [imagePreview, setImagePreview] = useState("/assets/placeholder-image.jpg")
+  const [userId, setUserId] = useState({})
+
+  useEffect(() => {
+    async function getUser() {
+      const user = await axios.get("/api/get-user-session")
+      if (user.data.user) {
+        const userData = jwtDecode(user.data.user.user)
+        setUserId(userData.id)
+      }
+    }
+    getUser()
+  }, [])
 
   const handleImgUpload = (e) => {
     if (e.target.files) {
@@ -28,8 +45,8 @@ export default function Dodaj() {
     }
   }
 
-  const handlePOST = () => {
-    axios.post('http://judasz.ddns.net:8000/create', {
+  const handlePOST = async () => {
+    const res = await axios.post(process.env.NEXT_PUBLIC_ENDPOINT + 'auction/create', {
       amount: data.amount,
       class: data.class,
       date: "now",
@@ -38,23 +55,22 @@ export default function Dodaj() {
       img: data.img,
       subject: data.subject,
       title: data.title,
-      user: 1,
+      user: userId,
       status: 0
     }, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    }).then(response => {
-      console.log(response)
-    }).catch(error => {
-      console.log(error)
     })
+    if (res.status === 200) {
+      router.push("/ustawienia/wystawione")
+    }
   }
 
   return (
     <Layout>
       <div className={`wrapper ${styles.container}`}>
-        <form onSubmit={e => e.preventDefault()}>
+        <form onSubmit={e => {e.preventDefault(); handlePOST()}}>
           <label htmlFor="Title">Tytuł</label>
           <input id="Title" type="text" onChange={e => {
             setData(prevState => {
@@ -74,7 +90,7 @@ export default function Dodaj() {
             })
           }} />
           <label htmlFor="Value">Cena</label>
-          <input id="Value" type="number" min={0} step={1} max={9999} onChange={e => {
+          <input id="Value" type="number" min={0} step={0.1} max={9999} onChange={e => {
             setData(prevState => {
               return {
                 ...prevState,
@@ -116,10 +132,25 @@ export default function Dodaj() {
             <Image fill sizes='(max-width: 768px) 100vw' src={imagePreview} alt='preview' />
           </div>
           <div className={styles.bottom}>
-            <input type="submit" value="Wyślij" onClick={() => handlePOST()} />
+            <input type="submit" value="Wyślij" />
           </div>
         </form>
       </div>
     </Layout>
   )
 }
+
+export const getServerSideProps = withIronSessionSsr(async ({ req, res }) => {
+  if (req.session.user) {
+    return {
+      props: {},
+    }
+  } else {
+    return {
+      props: {},
+      redirect: {
+        destination: '/'
+      }
+    }
+  }
+}, ironOptions)
