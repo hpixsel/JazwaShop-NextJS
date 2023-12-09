@@ -1,15 +1,15 @@
 .container {
   overflow: hidden;
   width: 100vw;
-  margin-inline: -1rem;
   margin-block: 2rem;
   --margin-inline: 2.5%;
   --width: 95%;
+  --max-ch: 18ch;
 }
 
 @media (min-width: 65em) {
   .container {
     width: 100%;
-    margin-left: 0;
+    --max-ch: 27ch;
   }
 }

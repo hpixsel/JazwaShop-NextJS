@@ -1,7 +1,7 @@
-import Layout from '../src/components/Layout'
-import Hero from '../src/components/Hero'
-import Slider from '../src/components/Slider'
-import Tutorial from '../src/components/Tutorial'
+import Layout from '/src/components/Layout'
+import Hero from '/src/components/Hero'
+import Slider from '/src/components/Slider'
+import Tutorial from '/src/components/Tutorial'
 import axios from 'axios'
 import { Suspense } from 'react'
 

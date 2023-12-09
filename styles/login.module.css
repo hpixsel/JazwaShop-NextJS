@@ -13,7 +13,7 @@
 }
 
 .container a {
-  color: #9575CD;
+  color: #9575cd;
 }
 
 .container form {
@@ -80,6 +80,16 @@ label.split {
 
 .bottom input:hover {
   background-color: var(--clr-accent);
+}
+
+.information {
+  margin-top: 1rem;
+}
+
+.message {
+  margin-top: 1rem;
+  color: var(--clr-btn-red) !important;
+  font-weight: 700;
 }
 
 @media (min-width: 65em) {

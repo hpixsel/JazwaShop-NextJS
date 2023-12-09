@@ -41,6 +41,19 @@
   background-color: rgba(244, 67, 54, 0.2);
 }
 
+.add_button {
+  background-color: var(--clr-accent);
+  color: var(--txt-white) !important;
+  border-radius: 4px;
+  padding: 0.5em;
+  margin-bottom: 1rem;
+}
+
+.add_button:hover {
+  background-color: var(--clr-accent-t);
+  text-decoration: none !important;
+}
+
 @media (min-width: 65em) {
   .container {
     display: flex;
@@ -54,11 +67,11 @@
     font-weight: 700;
     padding-right: 5rem;
     position: sticky;
-    top: 7.5rem
+    top: 7.5rem;
   }
 
   .left::before {
-    content: '';
+    content: "";
     position: absolute;
     right: 0;
     background-color: var(--clr-accent);
