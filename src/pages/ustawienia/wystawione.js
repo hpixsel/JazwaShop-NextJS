@@ -6,6 +6,9 @@ import Layout from '/src/components/Layout'
 import Link from 'next/link'
 
 import axios from 'axios'
+import { withIronSessionSsr } from 'iron-session/next'
+import { ironOptions } from '../../lib/iron-config'
+import jwtDecode from 'jwt-decode'
 
 export default function Stock(props) {
   return (
@@ -21,7 +24,7 @@ export default function Stock(props) {
           <div className={classNames(styles.right, styles.full_width_right)}>
             {props.data.map(card => {
               return(
-                <StockCard id={card.id} img={card.img} header={card.title} price={card.amount} date={card.date.timestamp} key={card.id} />
+                <StockCard id={card.id} userId={props.userId} img={card.img} header={card.title} price={card.amount} date={card.date.timestamp} key={card.id} />
               )
             })}
           </div>
@@ -31,20 +34,35 @@ export default function Stock(props) {
   )
 }
 
-export const getServerSideProps = async () => {
-  try {
-    const res = await axios.get(process.env.ENDPOINT)
-    const data = res.data
+export const getServerSideProps = withIronSessionSsr(async ({ req, res }) => {
+  const userData = jwtDecode(req.session.user.user)
 
+  if (!req.session.user) {
     return {
-      props: {
-        data
+      props: {},
+      redirect: {
+        destination: '/login'
       }
     }
-  } catch (err) {
-    console.log(err)
-    return {
-      props: {}
+  } else {
+    try {
+      const res = await axios.post(process.env.ENDPOINT + 'user/auctions', {
+        "user-id": 7060
+      })
+      const data = res.data
+  
+      return {
+        props: {
+          data,
+          userId: userData.id
+        }
+      }
+    } catch (err) {
+      console.log(err)
+      return {
+        props: {}
+      }
     }
   }
-}
+  
+}, ironOptions)

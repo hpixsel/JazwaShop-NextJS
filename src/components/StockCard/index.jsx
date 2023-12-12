@@ -24,13 +24,16 @@ export default function index(card) {
   const deleteAuction = async id => {
     const form = new FormData()
     form.append("id", id)
+    form.append("user-id", card.userId)
 
     const res = await axios.post(
       process.env.NEXT_PUBLIC_ENDPOINT + "auction/delete",
-      form
+      {
+        "auction-id": id,
+        "user-id": card.userId,
+      }
     )
 
-    console.log(res)
     if (res.status === 200) {
       router.push("/ustawienia/wystawione")
     }
