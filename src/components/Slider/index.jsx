@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick-theme.css"
 
 export default function SliderComponent(props) {
   const settings = {
-    infinite: true,
+    infinite: props.data.length > 4,
     centerMode: true,
     slidesToShow: 4,
     arrows: false,

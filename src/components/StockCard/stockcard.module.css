@@ -65,24 +65,25 @@
   gap: 0.5rem;
   border-radius: 8px;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .red_btn {
   --border-clr: var(--clr-btn-red);
-  --color: var(--clr-btn-red)
+  --color: var(--clr-btn-red);
 }
 
 @media (min-width: 65em) {
   .container {
     display: flex;
   }
-  
+
   .img_div {
     min-width: 15rem;
     width: 10rem;
     height: 7rem;
   }
-  
+
   .text_div {
     padding: 1rem;
     padding-bottom: 0.5rem;
@@ -120,6 +121,7 @@
 
   .btn:hover {
     background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
   }
 
   .red_btn:hover {
