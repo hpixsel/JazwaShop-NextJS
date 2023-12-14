@@ -23,27 +23,44 @@ export default function index(card) {
 
   const deleteAuction = async id => {
     const form = new FormData()
-    form.append("id", id)
+    form.append("auction-id", id)
     form.append("user-id", card.userId)
+    form.append("hash", card.hash)
 
-    const res = await axios.post(
-      process.env.NEXT_PUBLIC_ENDPOINT + "auction/delete",
-      {
-        "auction-id": id,
-        "user-id": card.userId,
+    try {
+      const res = await axios.post(
+        process.env.NEXT_PUBLIC_ENDPOINT + "auction/delete",
+        form
+      )
+      console.log(form)
+
+      if (res.status === 200) {
+        router.push("/ustawienia/wystawione")
       }
-    )
-
-    if (res.status === 200) {
-      router.push("/ustawienia/wystawione")
+    } catch (err) {
+      console.log(err)
     }
   }
+
+  console.log(card)
+  const data = {
+    id: card.id,
+    title: card.header,
+    userId: card.userId,
+    hash: card.hash,
+    img: card.img,
+    description: card.description,
+    class: card.class,
+    subject: card.subject,
+    price: card.price,
+  }
+
   return (
     <div className={styles.container} key={card.id}>
       <div className={styles.img_div}>
         <Link href={`/ogloszenia/${card.id}`}>
           <Image
-            src={"http://judasz.ddns.net:8000/" + card.img}
+            src={process.env.NEXT_PUBLIC_ENDPOINT + card.img}
             alt=""
             width={580}
             height={435}
@@ -57,12 +74,11 @@ export default function index(card) {
         </div>
         <div className={styles.bottom}>
           <div className={styles.bottom_btns}>
-            <a href="#!" className={styles.btn}>
+            <a className={styles.btn} onClick={() => card.edit(data)}>
               Edytuj
               <Image src="/assets/pencil.svg" alt="" width={16} height={16} />
             </a>
             <a
-              href="#!"
               className={classNames(styles.btn, styles.red_btn)}
               onClick={() => deleteAuction(card.id)}
             >

@@ -14,7 +14,7 @@ export default function Dodaj() {
   const [data, setData] = useState({
     "title": "",
     "description": "",
-    "amount": null,
+    "amount": 0,
     "class": 1,
     "subject": "Angielski",
     "img": null
@@ -112,6 +112,7 @@ export default function Dodaj() {
             <option value="3">3</option>
             <option value="4">4</option>
           </select>
+          
           <label htmlFor="Subject">Przedmiot</label>
           <select id='Subject' onChange={e => {
             setData(prevState => {

@@ -39,6 +39,7 @@ img {
   --clr-accent-t: hsla(262, 52%, 47%, 0.8);
   --clr-accent-300: #9575cd;
   --clr-mobile-nav: hsla(0, 0%, 8%, 0.98);
+  --clr-edit: hsla(0, 0%, 8%, 0.7);
 
   --clr-btn-neutral-inactive: #bbb;
   --clr-btn-neutral-active: #fff;
