@@ -10,9 +10,9 @@ export default function Home(props) {
     <>
       <Layout>
         <Hero />
-        <Suspense fallback={<div>Loading...</div>}>
+        {/* <Suspense fallback={<div>Loading...</div>}>
           {props.data && <Slider data={props.data} />}
-        </Suspense>
+        </Suspense> */}
         <Tutorial />
       </Layout>
     </>
@@ -20,7 +20,7 @@ export default function Home(props) {
 }
 
 
-export async function getServerSideProps() {
+/* export async function getServerSideProps() {
   try {
     const res = await axios.get(process.env.ENDPOINT)
     const data = res.data
@@ -36,4 +36,4 @@ export async function getServerSideProps() {
       props: {}
     }
   }
-}
+} */
