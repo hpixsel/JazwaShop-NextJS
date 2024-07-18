@@ -1,26 +1,35 @@
+'use client'
+
 import React, { useEffect, useState } from "react"
 import styles from "./navbar.module.css"
 import data from "./navbar.json"
 import classNames from "classnames"
 import Link from "next/link"
 import Image from "next/image"
-import jwtDecode from "jwt-decode"
-import axios from "axios"
+import { getUser } from "@lib/auth"
+
 
 export default function Navbar() {
   const [openNav, setOpenNav] = useState(false)
   const [user, setUser] = useState({})
-
+  
+  
+  
   useEffect(() => {
-    async function getUser() {
-      const user = await axios.get("/api/get-user-session")
-      if (user.data.user) {
-        const userData = jwtDecode(user.data.user.user)
-        setUser(userData)
-      }
+    // TODO: Rerender after cookie 'session' updates 
+    async function isLoggedIn() {
+      const userData = await getUser()
+      console.log(userData)
+      if (userData) setUser(userData)
     }
-    getUser()
+
+    isLoggedIn()
   }, [])
+
+  //toggle nav links div
+  const toggleOpen = () => {
+    setOpenNav(prevState => !prevState)
+  }
 
   const links = data.links.map(link => {
     const linkWithSub = classNames(styles.link, {
@@ -30,7 +39,7 @@ export default function Navbar() {
 
     return (
       <div key={link.url}>
-        <Link className={linkWithSub} href={link.url}>
+        <Link className={linkWithSub} href={link.url} onClick={toggleOpen}>
           <Image src={"/assets/" + link.svg} alt="svg" width={30} height={30} />
           <p>{link.name}</p>
           {link.sublinks && (
@@ -65,18 +74,13 @@ export default function Navbar() {
     )
   })
 
-  //toggle nav links div
-  const toggleOpen = () => {
-    setOpenNav(prevState => !prevState)
-  }
-
   //linking classes based of state
   const linksClass = classNames(styles.links, { [styles.openNav]: openNav })
 
   return (
     <div className={`${styles.container} wrapper`}>
       <div className={styles.nav}>
-        <Link className={styles.nav__logo} href="/">
+        <Link className={styles.nav__logo} href="/" onClick={toggleOpen}>
           <Image
             className={styles.nav__logo__img}
             src="/assets/jazwastore.svg"
@@ -99,6 +103,7 @@ export default function Navbar() {
         <Link
           className={`${styles.link} ${user.id && styles.sublinks}`}
           href={user.id ? "/ustawienia/profil" : "/login"}
+          onClick={toggleOpen}
         >
           <Image src={"/assets/user.svg"} alt="svg" width={30} height={30} />
           {user.id ? user.username : "Zaloguj"}

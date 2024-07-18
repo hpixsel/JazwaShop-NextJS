@@ -1,9 +1,5 @@
-import { withIronSessionApiRoute } from "iron-session/next";
-import { ironOptions } from "../../lib/iron-config"; 
 import axios from "axios";
 import shajs from "sha.js"
-
-export default withIronSessionApiRoute(registerRoute, ironOptions);
 
 async function registerRoute(req, res) {
   if (req.body.password !== req.body.confPassword) {
@@ -27,13 +23,6 @@ async function registerRoute(req, res) {
   
   const api = await axios.post(process.env.ENDPOINT + 'user/register', form)
   console.log(api)
-
-  /* req.session.user = {
-    hash: api.data.hash,
-    user: api.data.user
-  }
-
-  await req.session.save() */
 
   if (api.status === 200) {
     res.status(200).send(api.data)

@@ -1,4 +1,4 @@
-import { withIronSessionApiRoute } from "iron-session/next";
+/* import { withIronSessionApiRoute } from "iron-session/next";
 import { ironOptions } from "../../lib/iron-config";
 
 
@@ -7,4 +7,4 @@ export default withIronSessionApiRoute(
     res.send({ user: req.session.user });
   },
   ironOptions
-);
+); */
