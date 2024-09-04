@@ -16,6 +16,16 @@ export default function Card(slide) {
     }, 1500)
   }
 
+  const convertToLink = link => {
+    if (link.includes("https://") || link.includes("http://")) {
+      return link
+    } else {
+      return "https://" + link
+    }
+  }
+
+  const facebookLink = convertToLink(slide.fb)
+  
   return (
     <div className={styles.card}>
       <Link href={"/ogloszenia/" + slide.id} className={styles.img__div}>
@@ -57,7 +67,7 @@ export default function Card(slide) {
             </p>
           </div>
           {slide.fb && (
-            <a href={slide.fb} target="_blank" rel="noreferrer noopenner">
+            <a href={facebookLink} target="_blank" rel="noreferrer noopenner">
               <Image
                 src="/assets/facebook.svg"
                 alt="facebook"

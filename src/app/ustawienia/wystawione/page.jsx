@@ -1,19 +1,26 @@
+'use client'
+
 import React, { useEffect, useState } from "react"
 import styles from "/styles/profile.module.css"
 import StockCard from "/src/components/StockCard"
 import classNames from "classnames"
-import Layout from "/src/components/Layout"
 import Link from "next/link"
-import axios from "axios"
-import { withIronSessionSsr } from "iron-session/next"
-import { ironOptions } from "../../lib/iron-config"
-import jwtDecode from "jwt-decode"
 import Image from "next/image"
-import { useRouter } from "next/router"
+import { redirect, useRouter } from "next/navigation"
+import { getAllAuctions, updateAuction } from "@lib/auctions"
 
-export default function Stock(props) {
+export default function Stock() {
   const router = useRouter()
   const [editing, setEditing] = useState()
+  const [allAuctions, setAllAuctions] = useState([])
+
+  useEffect(() => {
+    async function getAuctions () {
+      const res = await getAllAuctions()
+      setAllAuctions(res)
+    }
+    getAuctions()
+  }, [])
 
   const editAuction = props => {
     setEditing(props)
@@ -22,33 +29,26 @@ export default function Stock(props) {
   const exitAuction = () => setEditing()
 
   const handlePOST = async () => {
-    const res = await axios.post(
-      process.env.NEXT_PUBLIC_ENDPOINT + "auction/update",
-      {
-        id: editing.id,
-        title: editing.title,
-        img: editing.img,
-        amount: editing.price,
-        user: editing.userId,
-        hash: editing.hash,
-        class: editing.class,
-        subject: editing.subject,
-        description: editing.description,
-      },
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    )
-    if (res.status === 200) {
+    const data = new FormData()
+
+    data.append("id", editing.id)
+    data.append("title", editing.title)
+    data.append("img", editing.img)
+    data.append("price", editing.price)
+    data.append("class", editing.class)
+    data.append("subject", editing.subject)
+    data.append("description", editing.description)
+
+
+    const res = await updateAuction(data)
+    if (res === 200) {
       setEditing()
-      router.push("/ustawienia/wystawione")
+      location.reload()
     }
   }
 
   return (
-    <Layout>
+  <>
       {editing?.id !== undefined && (
         <div className={styles.edit}>
           <div className={styles.edit__container}>
@@ -188,12 +188,12 @@ export default function Stock(props) {
             </Link>
           </div>
           <div className={classNames(styles.right, styles.full_width_right)}>
-            {props.data.map(card => {
+            {allAuctions.length > 0 ? allAuctions.map(card => {
               return (
                 <StockCard
                   id={card.id}
-                  userId={props.userId}
-                  hash={props.userHash}
+                  userId={card.user.id}
+                  hash={card.user.session}
                   edit={editAuction}
                   header={card.title}
                   description={card.description}
@@ -205,43 +205,10 @@ export default function Stock(props) {
                   key={card.id}
                 />
               )
-            })}
+            }) : <h3>Dodaj swoje pierwsze ogłoszenie!</h3>}
           </div>
         </div>
       </div>
-    </Layout>
+      </>
   )
 }
-
-export const getServerSideProps = withIronSessionSsr(async ({ req, res }) => {
-  const userData = jwtDecode(req.session.user.user)
-
-  if (!req.session.user) {
-    return {
-      props: {},
-      redirect: {
-        destination: "/login",
-      },
-    }
-  } else {
-    try {
-      const res = await axios.post(process.env.ENDPOINT + "user/auctions", {
-        "user-id": userData.id,
-      })
-      const data = res.data
-
-      return {
-        props: {
-          data,
-          userId: userData.id,
-          userHash: req.session.user.hash,
-        },
-      }
-    } catch (err) {
-      console.log(err)
-      return {
-        props: {},
-      }
-    }
-  }
-}, ironOptions)
