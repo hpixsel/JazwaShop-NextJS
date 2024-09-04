@@ -1,20 +1,36 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '/styles/profile.module.css'
-import axios from 'axios'
-import { getSession } from '@lib/auth'
+import { getSession, deleteAccount } from '@lib/auth'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
-export default async function Settings() {
-  const userData = await getSession()
+export default function Settings() {
+  const router = useRouter()
+  const [userData, setUserData] = useState(null)
+  const [deleteConfirm, setDeleteConfirm] = useState(false)
 
-  const deleteUser = async () => {
-    const res = await axios.post('/api/delete-user', {
-      hash: user.hash,
-      id: userData.id
-    })
+  useEffect(() => {
+    async function getUser() {
+      const userData = await getSession()
+      if (!userData) return null
+
+      setUserData(userData)
+    }
+
+    getUser()
+  }, [])
+
+  async function handleDelete () {
+    const res = await deleteAccount()
+
+    if (res) router.push('/')
   }
 
   return (
+    <>
     <div className="wrapper">
       <div className={styles.container}>
         <div className={styles.left}>
@@ -34,9 +50,17 @@ export default async function Settings() {
           <input id="number" type="text" placeholder={userData ? userData.number : undefined} disabled />
           <label htmlFor="pass">Hasło</label>
           <input id="pass" type="password" placeholder='*********' disabled />
-          <a href="#!" className={styles.red_btn}>Usuń Konto <Image src="/assets/delete.svg" alt="" width={16} height={16} /></a>
+          <a href="#!" className={styles.red_btn} onClick={() => setDeleteConfirm(true)}>Usuń Konto <Image src="/assets/delete.svg" alt="" width={16} height={16} /></a>
         </div>
       </div>
     </div>
+    {deleteConfirm && <div className={styles.delete_confirm}>
+      <h2>Czy na pewno chcesz usunąć konto?</h2>
+      <div className={styles.delete_confirm__buttons}>
+        <button className='btn' onClick={handleDelete}>Tak</button>
+        <button className={styles.red_btn} onClick={() => setDeleteConfirm(false)}>Nie</button>
+      </div>
+    </div>}
+    </>
   )
 }

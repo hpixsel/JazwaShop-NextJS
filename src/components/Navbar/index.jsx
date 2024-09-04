@@ -7,24 +7,26 @@ import classNames from "classnames"
 import Link from "next/link"
 import Image from "next/image"
 import { getUser } from "@lib/auth"
+import { usePathname } from "next/navigation"
+
 
 
 export default function Navbar() {
+  const pathname = usePathname()
   const [openNav, setOpenNav] = useState(false)
   const [user, setUser] = useState({})
   
-  
-  
   useEffect(() => {
-    // TODO: Rerender after cookie 'session' updates 
+    setOpenNav(false)
+
     async function isLoggedIn() {
       const userData = await getUser()
-      console.log(userData)
-      if (userData) setUser(userData)
+      if (userData) {setUser(userData)} else {setUser({})}
     }
 
     isLoggedIn()
-  }, [])
+
+  }, [pathname])
 
   //toggle nav links div
   const toggleOpen = () => {

@@ -13,7 +13,9 @@ export async function middleware(request: NextRequest) {
   if (
     !request.cookies.has("session") && 
     (request.nextUrl.pathname === "/dodaj" ||
-    request.nextUrl.pathname === "/ustawienia")
+    request.nextUrl.pathname === "/ustawienia" ||
+    request.nextUrl.pathname.startsWith("/ustawienia"))
+
   ) {
     return NextResponse.redirect(new URL('/login', request.url))
 

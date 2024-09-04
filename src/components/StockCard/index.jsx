@@ -3,12 +3,9 @@ import Image from "next/image"
 import React from "react"
 import styles from "./stockcard.module.css"
 import axios from "axios"
-import { useRouter } from "next/router"
 import Link from "next/link"
 
-export default function index(card) {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const router = useRouter()
+export default function StockCard(card) {
   const date = new Date(card.date * 1000)
   const dateFormat =
     date.getHours() +
@@ -32,17 +29,15 @@ export default function index(card) {
         process.env.NEXT_PUBLIC_ENDPOINT + "auction/delete",
         form
       )
-      console.log(form)
-
+      
       if (res.status === 200) {
-        router.push("/ustawienia/wystawione")
+        location.reload()
       }
     } catch (err) {
       console.log(err)
     }
   }
-
-  console.log(card)
+  
   const data = {
     id: card.id,
     title: card.header,

@@ -83,11 +83,10 @@ h3 {
   line-height: 1.1;
 }
 
-.btn-cta {
-  background-color: var(--clr-btn-neutral-active);
+.btn-cta, .btn {
   text-decoration: none;
   font-weight: 700;
-  padding: 0.25em 0.5em;
+  padding: 0.25em 1.5em;
   text-transform: uppercase;
   border-radius: 0.25em;
   display: flex;
@@ -95,21 +94,18 @@ h3 {
   justify-content: center;
   gap: 0.5em;
   font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.btn-cta {
+  background-color: var(--clr-btn-neutral-active);
 }
 
 .btn {
   border: 0.125em solid var(--clr-btn-neutral-active);
-  text-decoration: none;
+  background-color: transparent;
   color: var(--txt-white);
-  font-weight: 700;
-  padding: 0.125em 0.5em;
-  text-transform: uppercase;
-  border-radius: 0.25em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5em;
-  font-size: 1.25rem;
+  
 }
 
 .btn path {

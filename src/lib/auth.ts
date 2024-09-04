@@ -66,8 +66,28 @@ export async function register (formData: FormData) {
     const hashedPassword = shajs('SHA256').update(formData.get('password')).digest('hex')
     formData.set('password', hashedPassword)
     const res = await axios.post(process.env.ENDPOINT + 'user/register', formData)
+    console.log(res)
     if (res.data.code === 0) {
+        console.log(res.data)
         return "User Registered"
+    }
+}
+
+export async function deleteAccount () {
+    const session = await getSession()
+
+    if (!session) return null
+
+    const formData = new FormData()
+    formData.append('id', session.id.toString())
+    formData.append('hash', session.session)
+
+
+    const res = await axios.post(process.env.ENDPOINT + 'user/delete', formData)
+    
+    if (res.data.code === 0) {
+        cookies().delete('session')
+        return "User Successfully Deleted"
     }
 }
 
